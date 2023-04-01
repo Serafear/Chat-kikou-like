@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="email">Email:</label>
+      <input formControlName="email" id="email" type="email" />
+      <div *ngIf="loginForm.get('email')?.errors?.['invalidEmail']">
+        L'email est invalide.
+      </div>
+    </div>
+    <div>
+      <label for="password">Mot de passe:</label>
+      <input formControlName="password" id="password" type="password" />
+      <div *ngIf="loginForm.get('password')?.errors?.['invalidPassword']">
+        Le mot de passe est invalide.
+      </div>
+    </div>
+    <button type="submit">Se connecter</button>
+    <div>
+      <a [routerLink]="['/register']">S'inscrire</a>
+      <a [routerLink]="['/forgot-password']">Mot de passe oublié</a>
+    </div>
+  </form>
+</div>

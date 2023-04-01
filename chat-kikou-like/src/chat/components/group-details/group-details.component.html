@@ -1,0 +1,17 @@
+<div class="profile-list">
+  <div *ngFor="let profile of profiles" class="profile-item">
+    <img [src]="profile.imageUrl" alt="{{ profile.name }}" class="profile-image" />
+    <div class="menu-container">
+      <button class="menu-toggle" (click)="profile.showMenu = !profile.showMenu">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </button>
+      <ul class="options" *ngIf="profile.showMenu">
+        <li class="option" (click)="onOptionClick(profile, 'whisper')">Whisper</li>
+        <li class="option" (click)="onOptionClick(profile, 'invite')">Invite</li>
+        <li class="option" (click)="onOptionClick(profile, 'block')">Block</li>
+      </ul>
+    </div>
+  </div>
+</div>

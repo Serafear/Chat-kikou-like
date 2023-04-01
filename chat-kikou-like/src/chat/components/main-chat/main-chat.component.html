@@ -1,0 +1,39 @@
+<div class="main-chat-container">
+  <nav class="navbar">
+    <div class="nav-left">
+      <img
+        src="https://cdn.discordapp.com/attachments/1030197119304355870/1091306734045368320/Kolia_logo_a_simple_logo_house_and_a_solid_zeus_bolt_of_lightni_99488328-dd5b-41dc-8289-d47fd5e41fef.png"
+        alt="Logo"
+        class="logo"
+      />
+      <a (click)="logout()" class="logout-link">Logout</a>
+      <a (click)="toggleMessageList()" class="toggle-messages">Messages</a>
+    </div>
+    <div class="nav-right">
+      <a (click)="showNotifications()" class="notifications">Notifications</a>
+      <div class="profile-image-container" [routerLink]="['/user-profile']">
+        <img
+          class="profile-image"
+          src="https://cdn.discordapp.com/attachments/1030197119304355870/1091355921747279955/Kolia_circular_profile_photo_man_beautiful_glasses_d57aac53-baf8-46d2-8118-4612da11ec96.png"
+          alt="Profile"
+        />
+      </div>
+    </div>
+  </nav>
+
+  <div class="content">
+    <app-group-details class="group-details"></app-group-details>
+
+    <div class="chat-wrapper">
+      <app-message-list
+        *ngIf="messageListVisible"
+        class="message-list"
+      ></app-message-list>
+
+      <div class="chat-section">
+        <app-chat-list class="chat-list"></app-chat-list>
+        <app-chat-window class="chat-window"></app-chat-window>
+      </div>
+    </div>
+  </div>
+</div>

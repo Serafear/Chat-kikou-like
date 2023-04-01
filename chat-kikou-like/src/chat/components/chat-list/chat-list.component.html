@@ -1,0 +1,34 @@
+<section>
+  <div class="container">
+    <div class="carousel">
+      <input
+        *ngFor="let chat of chats"
+        type="radio"
+        name="slides"
+        [id]="'slide-' + chat.id"
+        [checked]="chat.id === 1"
+      />
+      <ul class="carousel__slides">
+        <li *ngFor="let chat of chats" class="carousel__slide">
+          <figure>
+            <div>
+              <img [src]="chat.url" alt="" />
+            </div>
+            <figcaption>
+              {{ chat.caption }}
+              <span class="credit">{{ chat.credit }}</span>
+            </figcaption>
+          </figure>
+          <app-message-list [messages]="chat.messages"></app-message-list>
+        </li>
+      </ul>
+      <ul class="carousel__thumbnails">
+        <li *ngFor="let chat of chats">
+          <label [attr.for]="'slide-' + chat.id"
+            ><img [src]="chat.thumbnailUrl" alt=""
+          /></label>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

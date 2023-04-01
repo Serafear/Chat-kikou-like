@@ -1,0 +1,18 @@
+<div class="user-profile" *ngIf="userProfile">
+  <a [routerLink]="['/main-chat']" class="return-arrow">&#8592;</a>
+  <form (ngSubmit)="onSubmit()">
+    <img [src]="userProfile.avatarUrl" alt="Avatar" />
+    <input [(ngModel)]="userProfile.avatarUrl" name="avatarUrl" />
+    <h1>
+      <input [(ngModel)]="userProfile.name" name="name" />
+      <input [(ngModel)]="userProfile.surname" name="surname" />
+    </h1>
+    <h2>
+      <input [(ngModel)]="userProfile.position" name="position" />
+    </h2>
+    <h2>
+      <textarea [(ngModel)]="userProfile.summary" name="summary"></textarea>
+    </h2>
+    <button type="submit">Update Profile</button>
+  </form>
+</div>
