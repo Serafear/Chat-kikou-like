@@ -1,4 +1,5 @@
 <div *ngIf="chat" class="chat-details">
+  <button class="back-button" (click)="goBack()">Go back</button>
   <h1>{{ chat.caption }}</h1>
   <p class="credit">{{ chat.credit }}</p>
   <img [src]="chat.url" alt="Chat image" />
@@ -11,4 +12,3 @@
     </ul>
   </div>
 </div>
-<p>Hello</p>

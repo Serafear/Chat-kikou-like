@@ -29,4 +29,7 @@ export class ChatWindowComponent implements OnInit {
       console.log(this.chat); // Vous pouvez maintenant accéder à toutes les informations de la conversation
     });
   }
+  goBack(): void {
+    window.history.back();
+  }
 }
