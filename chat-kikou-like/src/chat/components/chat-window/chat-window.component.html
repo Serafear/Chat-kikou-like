@@ -1,1 +1,14 @@
-<p>chat-window works!</p>
+<div *ngIf="chat" class="chat-details">
+  <h1>{{ chat.caption }}</h1>
+  <p class="credit">{{ chat.credit }}</p>
+  <img [src]="chat.url" alt="Chat image" />
+  <div class="messages">
+    <h2>Messages</h2>
+    <ul>
+      <li *ngFor="let message of chat.messages">
+        <strong>{{ message.user }}:</strong> {{ message.text }}
+      </li>
+    </ul>
+  </div>
+</div>
+<p>Hello</p>

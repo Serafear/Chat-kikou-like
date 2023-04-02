@@ -12,7 +12,9 @@
         <li *ngFor="let chat of chats" class="carousel__slide">
           <figure>
             <div>
-              <img [src]="chat.url" alt="" />
+              <a [routerLink]="['/chat', chat.id, chat.caption]">
+                <img [src]="chat.url" alt="" />
+              </a>
             </div>
             <figcaption>
               {{ chat.caption }}
@@ -22,6 +24,7 @@
           <app-message-list [messages]="chat.messages"></app-message-list>
         </li>
       </ul>
+      <app-message-input></app-message-input>
       <ul class="carousel__thumbnails">
         <li *ngFor="let chat of chats">
           <label [attr.for]="'slide-' + chat.id"
