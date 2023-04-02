@@ -9,13 +9,7 @@ import { AuthService } from '../../../auth/services/auth.service';
 export class UserProfileComponent implements OnInit {
   userProfile: any;
 
-  constructor(private authService: AuthService) {}
-
-  ngOnInit() {
-    this.loadUserProfile();
-  }
-
-  loadUserProfile() {
+  constructor(private authService: AuthService) {
     this.authService.getUserProfile().subscribe(
       (profile) => {
         this.userProfile = profile;
@@ -25,6 +19,8 @@ export class UserProfileComponent implements OnInit {
       }
     );
   }
+
+  ngOnInit() {}
 
   onSubmit() {
     // Handle the form submission here and update the user profile information

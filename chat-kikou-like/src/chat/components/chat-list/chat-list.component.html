@@ -24,7 +24,6 @@
           <app-message-list [messages]="chat.messages"></app-message-list>
         </li>
       </ul>
-      <app-message-input></app-message-input>
       <ul class="carousel__thumbnails">
         <li *ngFor="let chat of chats">
           <label [attr.for]="'slide-' + chat.id"

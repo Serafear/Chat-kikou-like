@@ -32,4 +32,12 @@ export class ChatWindowComponent implements OnInit {
   goBack(): void {
     window.history.back();
   }
+
+  onMessageSent(message: { user: string; text: string }): void {
+    if (this.chat) {
+      this.chatService.sendMessage(this.chat.id, message);
+    } else {
+      console.error('Chat not found');
+    }
+  }
 }

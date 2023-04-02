@@ -60,4 +60,13 @@ export class ChatService {
   getChatById(id: number) {
     return this.chats.find((chat) => chat.id === id);
   }
+
+  sendMessage(chatId: number, message: { user: string; text: string }): void {
+    const chat = this.chats.find((chat) => chat.id === chatId);
+    if (chat) {
+      chat.messages.push(message);
+    } else {
+      console.error(`Chat with id ${chatId} not found`);
+    }
+  }
 }
