@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { delay, map, tap } from 'rxjs/operators';
-//import * as jwt_decode from 'jsonwebtoken';
+//import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root',
@@ -156,26 +156,75 @@ export class AuthService {
   }
 }
 
-/*
-export class TokenService {
+/* si JWT
+export class AuthService {
+  private tokenSubject: BehaviorSubject<string>;
+  public token: Observable<string>;
+  private jwtHelper: JwtHelperService;
+
+  // ...
+
+  constructor() {
+    this.tokenSubject = new BehaviorSubject<string>(
+      localStorage.getItem('token') || ''
+    );
+    this.token = this.tokenSubject.asObservable();
+    this.jwtHelper = new JwtHelperService();
+  }
+
+  // ...
+
+  refreshToken(): Observable<any> {
+    // Implementez la logique de rafraîchissement du token d'accès ici, en utilisant votre API
+    // Cette méthode doit être appelée lorsque le token d'accès est expiré, avant de faire une nouvelle requête à l'API
+
+    // Exemple :
+    // return this.http.post('https://example.com/api/refresh-token', { refreshToken: this.refreshTokenValue })
+    //   .pipe(
+    //     map((response) => {
+    //       localStorage.setItem('token', response.accessToken);
+    //       this.tokenSubject.next(response.accessToken);
+    //       return response;
+    //     })
+    //   );
+  }
+
+  // ...
+
+  getUserProfile(): Observable<any> {
+    if (this.tokenValue && !this.jwtHelper.isTokenExpired(this.tokenValue)) {
+      const userProfile = this.userProfiles.find(
+        (profile) => profile.token === this.tokenValue
+      );
+
+      if (userProfile) {
+        return of(userProfile);
+      }
+    } else if (this.tokenValue && this.jwtHelper.isTokenExpired(this.tokenValue)) {
+      // Le token d'accès est expiré, vous pouvez le rafraîchir ici avant de faire une nouvelle requête
+      // Exemple :
+      // return this.refreshToken().pipe(
+      //   switchMap(() => {
+      //     // Récupérez le profil utilisateur après avoir rafraîchi le token d'accès
+      //     return this.getUserProfile();
+      //   })
+      // );
+    }
+
+    return throwError('User not found');
+  }
+
+  // ...
+} */
+
+/* pour auth.guard
+export class AuthService {
   constructor() {}
 
-  decodeToken(token: string): any {
-    try {
-      return jwt_decode(token);
-    } catch (error) {
-      console.error('Error decoding token:', error);
-      return null;
-    }
+  public isAuthenticated(): boolean {
+    const token = localStorage.getItem('token');
+    // Vérifiez si le token existe et est valide
+    return !!token;
   }
-
-  constructUrl(token: string): string {
-    const decodedToken = this.decodeToken(token);
-    if (!decodedToken) return '';
-
-    const userId = decodedToken.sub; // Assuming the token contains a "sub" property with the user ID
-    const baseUrl = 'https://example.com/api/user/';
-
-    return `${baseUrl}${userId}`;
-  }
-} */
+}
+*/

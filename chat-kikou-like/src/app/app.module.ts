@@ -4,11 +4,34 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from '../auth/auth.module';
 import { ChatModule } from '../chat/chat.module';
+//import { JwtInterceptor, JwtModule } from '@auth0/angular-jwt';
+
+/*export function tokenGetter() {
+  return localStorage.getItem('token');
+}*/
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, AuthModule, ChatModule],
-  providers: [],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    AuthModule,
+    ChatModule,
+    /* JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['example.com'], // Remplacez par le domaine de votre API
+        disallowedRoutes: [], // Ajoutez des routes spécifiques à ignorer si nécessaire
+      },
+    }),*/
+  ],
+  providers: [
+    /* {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true,
+    },*/
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
