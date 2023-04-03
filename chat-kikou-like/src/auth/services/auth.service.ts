@@ -2,13 +2,23 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { delay, map, tap } from 'rxjs/operators';
 //import { JwtHelperService } from '@auth0/angular-jwt';
+//import { HttpClient } from '@angular/common/http';
 
 @Injectable({
+  //service singleton
   providedIn: 'root',
 })
 export class AuthService {
   private tokenSubject: BehaviorSubject<string>;
   public token: Observable<string>;
+
+  /*
+  interface UserProfile {
+  id: number;
+  name: string;
+  email: string;
+}
+  */
 
   private users: Array<{ email: string; password: string }> = [];
   private userProfiles = [
@@ -40,6 +50,7 @@ export class AuthService {
   constructor() {
     this.tokenSubject = new BehaviorSubject<string>(
       localStorage.getItem('token') || ''
+      //private http: HttpClient
     );
     this.token = this.tokenSubject.asObservable();
   }
@@ -49,16 +60,16 @@ export class AuthService {
   }
 
   register(email: string, password: string): Observable<any> {
-    // Check if the user already exists
+    // Est ce que l'utilisateur existe ?
     const existingUser = this.users.find((user) => user.email === email);
 
     if (existingUser) {
-      // If the user already exists, return an error
+      // si il existe déjà renvoi une erreur
       return of({ success: false, message: 'User already exists' }).pipe(
         delay(1000)
       );
     } else {
-      // If the user does not exist, register the new user
+      // Si il n'existe pas encore, register le
       this.users.push({ email, password });
 
       // Simulate a registration error
@@ -66,7 +77,7 @@ export class AuthService {
         throw new Error('Registration failed');
       }
 
-      // Return a success message with a token or other data as needed
+      // Retourne un message ou un token ou une data au besoin
       return of({ success: true, message: 'Registration successful' }).pipe(
         delay(1000)
       );
@@ -74,12 +85,11 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<any> {
-    // Simuler un appel API réussi si les identifiants sont valides
-    // Ici, vous pouvez ajouter d'autres paires email / mot de passe valides
+    // On simule l'appel API
+    //On ajuste la paire email / mot de passe valides
     const validCredentials = [
       { email: 'test@example.fr', password: 'Mdp123' },
       { email: 'another@example.com', password: 'Mdp124' },
-      // { email: 'another@example.com', password: 'AnotherPassword' },
     ];
 
     const isValidCredential = validCredentials.some(
@@ -87,13 +97,13 @@ export class AuthService {
     );
 
     if (isValidCredential) {
-      // Get the user profile that matches the email and password
+      // On récupère le profil user correspondant
       const userProfile = this.userProfiles.find(
         (profile) => profile.email === email && profile.password === password
       );
 
       if (userProfile) {
-        // Use the token from the matching user profile
+        // On utilise un token correspondant au profil
         const token = userProfile.token;
 
         return of({ token }).pipe(
@@ -108,7 +118,7 @@ export class AuthService {
         return throwError('User profile not found');
       }
     } else {
-      // Simuler un appel API échoué si les identifiants sont incorrects
+      // On Simule un appel API échoué si les identifiants sont incorrects
       return of({ error: 'Invalid email or password' }).pipe(
         delay(1000),
         map(() => {
@@ -119,15 +129,15 @@ export class AuthService {
   }
 
   resetPassword(email: string): Observable<any> {
-    // Simulez le processus de réinitialisation du mot de passe avec un délai de 1000 ms
+    // On Simule le processus de réinitialisation du mot de passe avec un délai de 1000 ms
     return of({ success: true }).pipe(
       delay(1000),
       map((response) => {
         if (response.success) {
-          // La réinitialisation du mot de passe a réussi, vous pouvez gérer la réponse ici
+          // La réinitialisation du mot de passe a réussi, on gère la réponse
           console.log('Email de réinitialisation du mot de passe envoyé');
         } else {
-          // Gérer l'échec de la réinitialisation du mot de passe
+          // Géstion de l'échec de la réinitialisation du mot de passe
           throw new Error(
             "Erreur lors de l'envoi de l'email de réinitialisation"
           );
@@ -140,6 +150,8 @@ export class AuthService {
     if (this.tokenValue) {
       const userProfile = this.userProfiles.find(
         (profile) => profile.token === this.tokenValue
+        /*const url = 'https://example.com/api/user-profile';
+          return this.http.get<UserProfile>(url); */
       );
 
       if (userProfile) {
@@ -175,8 +187,8 @@ export class AuthService {
   // ...
 
   refreshToken(): Observable<any> {
-    // Implementez la logique de rafraîchissement du token d'accès ici, en utilisant votre API
-    // Cette méthode doit être appelée lorsque le token d'accès est expiré, avant de faire une nouvelle requête à l'API
+    // Implementez la logique de rafraîchissement du token d'accès
+  
 
     // Exemple :
     // return this.http.post('https://example.com/api/refresh-token', { refreshToken: this.refreshTokenValue })
@@ -201,11 +213,11 @@ export class AuthService {
         return of(userProfile);
       }
     } else if (this.tokenValue && this.jwtHelper.isTokenExpired(this.tokenValue)) {
-      // Le token d'accès est expiré, vous pouvez le rafraîchir ici avant de faire une nouvelle requête
+      // Le token d'accès est expiré, on le rafraichi
       // Exemple :
       // return this.refreshToken().pipe(
       //   switchMap(() => {
-      //     // Récupérez le profil utilisateur après avoir rafraîchi le token d'accès
+      //     // On récupère le profil après le rafraichissement 
       //     return this.getUserProfile();
       //   })
       // );
@@ -223,7 +235,7 @@ export class AuthService {
 
   public isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
-    // Vérifiez si le token existe et est valide
+    // On vérifie si le token existe et est valide
     return !!token;
   }
 }

@@ -20,8 +20,8 @@ import { ChatModule } from '../chat/chat.module';
     /* JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ['example.com'], // Remplacez par le domaine de votre API
-        disallowedRoutes: [], // Ajoutez des routes spécifiques à ignorer si nécessaire
+        allowedDomains: ['example.com'], 
+        disallowedRoutes: [], // Ajout de routes spécifiques si nécessaire
       },
     }),*/
   ],

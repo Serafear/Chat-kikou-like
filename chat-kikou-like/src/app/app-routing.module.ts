@@ -9,6 +9,11 @@ import { ChatWindowComponent } from '../chat/components/chat-window/chat-window.
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  /*{
+  path: 'login',
+  component: LoginComponent,
+  canActivate: [AuthGuard]
+} */
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
