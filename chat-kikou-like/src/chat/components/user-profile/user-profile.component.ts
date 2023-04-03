@@ -23,8 +23,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
-    // Handle the form submission here and update the user profile information
-    // You can make an API call to update the user profile information
+    // On peut créer la fonction update ici
     console.log('Profile updated:', this.userProfile);
   }
 }

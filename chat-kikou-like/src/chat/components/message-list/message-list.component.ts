@@ -6,5 +6,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./message-list.component.css'],
 })
 export class MessageListComponent {
+  //communication enfant-parent
   @Input() messages: Array<{ user: string; text: string }> = [];
 }
