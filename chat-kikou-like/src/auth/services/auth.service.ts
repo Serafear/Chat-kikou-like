@@ -48,6 +48,8 @@ export class AuthService {
   ];
 
   constructor() {
+    //création d'une nouvelle instance de classe qui crée un nouel observable le nouvel observable
+    //token.subject
     this.tokenSubject = new BehaviorSubject<string>(
       localStorage.getItem('token') || ''
       //private http: HttpClient
@@ -55,6 +57,7 @@ export class AuthService {
     this.token = this.tokenSubject.asObservable();
   }
 
+  //on définit le getter tokenvalue
   public get tokenValue(): string {
     return this.tokenSubject.value;
   }
@@ -107,6 +110,7 @@ export class AuthService {
         const token = userProfile.token;
 
         return of({ token }).pipe(
+          //on retourne un observable qui va émettre l'objet contenant le token
           delay(1000),
           map((response) => {
             localStorage.setItem('token', response.token);
